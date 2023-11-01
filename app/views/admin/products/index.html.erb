@@ -1,0 +1,31 @@
+<!-- app/views/admin/products/index.html.erb -->
+
+<h1>Admin Panel - Products</h1>
+
+<p><%= link_to 'New Product', new_admin_product_path, class: 'btn btn-primary' %></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.product_name %></td>
+        <td><%= product.product_description %></td>
+        <td><%= number_to_currency(product.product_price) %></td>
+        <td><%= product.category.category_name %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_product_path(product), class: 'btn btn-primary' %>
+          <%= link_to 'Delete', admin_product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
