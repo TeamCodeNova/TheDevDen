@@ -18,6 +18,15 @@
         <td><%= product.product_description %></td>
         <td><%= number_to_currency(product.product_price) %></td>
         <td><%= product.category.category_name %></td>
+        <td>
+          <% product_image = ProductImage.find_by(product_id: product.id) %>
+          <% if product_image.present? %>
+            <%= image_tag url_for(product_image.image) %>
+            <%= product_image.image.filename %>
+          <% else %>
+            No Image
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
