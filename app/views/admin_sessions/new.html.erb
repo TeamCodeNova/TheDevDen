@@ -1,0 +1,20 @@
+<!-- app/views/admin_sessions/new.html.erb -->
+<h1>Admin Sign In</h1>
+
+<%= form_with model: AdminSessionForm.new, url: admin_login_path do |f| %>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Sign In' %>
+  </div>
+<% end %>
+
+<%= flash[:alert] %> <!-- Display the error message here -->

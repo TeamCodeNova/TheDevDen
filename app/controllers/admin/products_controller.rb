@@ -1,6 +1,6 @@
 module Admin
   class ProductsController < ApplicationController
-    # before_action :require_admin
+    before_action :authenticate_admin!
 
     # List all products
     def index
@@ -55,10 +55,12 @@ module Admin
       params.require(:product).permit(:product_name, :product_description, :product_price, :category_id)
     end
 
-    # def require_admin
-    #   unless current_user&.is_admin?
-    #     redirect_to root_path, alert: 'You are not authorized to access this page.'
-    #   end
-    # end
+    def authenticate_admin!
+      redirect_to admin_login_path unless current_admin
+    end
+
+    def current_admin
+      @current_admin ||= User.find_by(id: session[:admin_id])
+    end
   end
 end
