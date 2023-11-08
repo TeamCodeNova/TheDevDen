@@ -40,4 +40,8 @@ class User < ApplicationRecord
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(token, cost: cost)
   end
+
+  def admin?
+    self.admin
+  end
 end

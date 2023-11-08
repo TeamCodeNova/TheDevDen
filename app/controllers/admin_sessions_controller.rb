@@ -8,33 +8,34 @@ class AdminSessionsController < ApplicationController
     @admin_session = AdminSessionForm.new(admin_session_params)
 
     if @admin_session.valid?
-      if admin_authenticated?(@admin_session.email, @admin_session.password)
-        session[:admin_id] = User.find_by(email: @admin_session.email).id # Set the admin_id session
-        redirect_to admin_products_path # Redirect to the admin dashboard if authentication is successful
+      user = User.find_by(email: @admin_session.email.downcase)
+      # Ensure user exists and authenticate the password
+      if user && user.authenticate(@admin_session.password)
+        # Ensure the user is an admin
+        if user.admin?
+          session[:admin_id] = user.id # Set the admin_id session
+          redirect_to admin_products_path, notice: 'Admin logged in successfully.'
+        else
+          flash.now[:alert] = 'You do not have admin privileges.'
+          render :new
+        end
       else
-
-        flash[:alert] = 'Invalid email or password.'
-        render :new # Render the login form with the error message
+        flash.now[:alert] = 'Invalid email or password.'
+        render :new
       end
     else
-      render :new # Render the login form if there are validation errors
+      render :new
     end
+  end
+
+  def destroy
+    session.delete(:admin_id)
+    redirect_to admin_login_path, notice: 'Admin logged out successfully.'
   end
 
   private
 
   def admin_session_params
     params.require(:admin_session_form).permit(:email, :password)
-  end
-
-  # Replace this method with your actual authentication logic
-  def admin_authenticated?(email, password)
-    # Perform authentication logic, e.g., checking the email and password against the database
-    user = User.find_by(email: email)
-    if user
-      return true
-    else
-      return false
-    end
   end
 end

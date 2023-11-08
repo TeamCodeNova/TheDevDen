@@ -1,15 +1,14 @@
+# config/routes.rb
 Rails.application.routes.draw do
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'sessions/destroy'
   # Admin authentication routes
-  get 'admin_login', to: 'admin_sessions#new'
+  get 'admin_login', to: 'admin_sessions#new', as: 'admin_login'
   post 'admin_login', to: 'admin_sessions#create'
-  delete 'admin_logout', to: 'admin_sessions#destroy'
+  delete 'admin_logout', to: 'admin_sessions#destroy', as: 'admin_logout'
 
-  get    'login',   to: 'sessions#new'
-  post   'login',   to: 'sessions#create'
-  delete 'logout',  to: 'sessions#destroy'
+  # User authentication routes
+  get 'login', to: 'sessions#new', as: 'login'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy', as: 'logout'
 
   get 'signup', to: 'users#new', as: 'signup'
   post 'users', to: 'users#create'
@@ -20,6 +19,8 @@ Rails.application.routes.draw do
   resources :cart, only: [:index]
   resource :account, only: [:show]
   resources :users, only: [:new, :create]
+
+  # Admin namespace
   namespace :admin do
     resources :products
   end
