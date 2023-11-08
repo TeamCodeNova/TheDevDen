@@ -1,5 +1,7 @@
 module Admin
   class ProductsController < ApplicationController
+    before_action :authenticate_admin!
+
 
     def log_p(variable)
       Rails.logger.info("Variable value: #{variable}")
@@ -79,6 +81,13 @@ module Admin
       unless new_image.save
         Rails.logger.error "Failed to save image for product ##{@product.id}"
       end
+    end
+    def authenticate_admin!
+      redirect_to admin_login_path unless current_admin
+    end
+
+    def current_admin
+      @current_admin ||= User.find_by(id: session[:admin_id])
     end
   end
 end
