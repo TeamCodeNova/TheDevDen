@@ -5,9 +5,6 @@ Category.create(category_name: 'Python')
 Category.create(category_name: 'Ruby')
 # Add more categories as needed
 
-# Admin User
-User.create(user_name: 'admin', password: 'password123', is_admin: true)
-
 # Products
 Product.create(
   product_name: 'Web Scraper',
