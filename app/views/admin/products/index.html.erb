@@ -11,6 +11,7 @@
       <th>Description</th>
       <th>Price</th>
       <th>Category</th>
+      <th>Image</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -22,11 +23,19 @@
         <td><%= number_to_currency(product.product_price) %></td>
         <td><%= product.category.category_name %></td>
         <td>
+          <% product_image = ProductImage.find_by(product_id: product.id) %>
+          <% if product_image.present? %>
+            <%= image_tag url_for(product_image.image) %>
+            <%= product_image.image.filename %>
+          <% else %>
+            No Image
+          <% end %>
+        </td>
+        <td>
           <%= link_to 'Edit', edit_admin_product_path(product), class: 'btn btn-primary' %>
-<%= form_with url: admin_product_path(product), method: :delete do %>
-  <%= submit_tag 'Delete', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-<% end %>
-
+          <%= form_with url: admin_product_path(product), method: :delete do %>
+            <%= submit_tag 'Delete', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
         </td>
       </tr>
     <% end %>
