@@ -1,6 +1,5 @@
-# db/seeds.rb
+require 'faker'
 
-# Clear the users table before seeding to prevent duplication if you re-seed
 User.delete_all
 
 # Create an admin user
@@ -28,25 +27,24 @@ User.create!(
   address: '789 Fake Blvd'
 )
 
-puts "Seeded #{User.count} users."
-
-# Categories
+# Clear existing data
 Category.delete_all
-Category.create(category_name: 'Python')
-Category.create(category_name: 'Ruby')
-# Add more categories as needed
-
-# Products
 Product.delete_all
-Product.create(
-  product_name: 'Web Scraper',
-  product_description: 'A Web Scraper',
-  product_price: 19.99,
-  category_id: 1
-)
-Product.create(
-  product_name: 'Final Project',
-  product_description: 'Ruby',
-  product_price: 29.99,
-  category_id: 2
-)
+
+# Create 4 categories using Faker
+4.times do
+  Category.create(category_name: Faker::Lorem.word)
+end
+
+# Create 100 products using Faker
+100.times do
+  Product.create(
+    product_name: Faker::Commerce.product_name,
+    product_description: Faker::Lorem.sentence,
+    product_price: Faker::Commerce.price(range: 10.0..100.0),
+    category_id: Category.pluck(:id).sample
+  )
+end
+
+puts "Seeded #{Category.count} categories."
+puts "Seeded #{Product.count} products."
