@@ -1,5 +1,7 @@
 # config/routes.rb
 Rails.application.routes.draw do
+  get 'about/show'
+  get 'about/update'
   # Admin authentication routes
   get 'admin_login', to: 'admin_sessions#new', as: 'admin_login'
   post 'admin_login', to: 'admin_sessions#create'
@@ -19,9 +21,12 @@ Rails.application.routes.draw do
   resources :cart, only: [:index]
   resource :account, only: [:show]
   resources :users, only: [:new, :create]
-
+  resource :about, only: [:show, :edit, :update], controller: 'about'
   # Admin namespace
   namespace :admin do
     resources :products
+    get 'dashboard', to: 'dashboard#index'
+    get 'about/edit', to: 'about#edit', as: 'edit_about'
+    put 'about', to: 'about#update'
   end
 end
