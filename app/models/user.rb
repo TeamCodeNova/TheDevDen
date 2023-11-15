@@ -12,6 +12,8 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :address, presence: true
 
+  has_many :cart_items
+
   # Generates a new remember token and saves its digest to the database
   def remember
     self.remember_token = User.new_token
