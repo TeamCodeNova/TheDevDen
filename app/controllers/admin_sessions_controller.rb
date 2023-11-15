@@ -1,4 +1,3 @@
-# app/controllers/admin_sessions_controller.rb
 class AdminSessionsController < ApplicationController
   def new
     @admin_session = AdminSessionForm.new

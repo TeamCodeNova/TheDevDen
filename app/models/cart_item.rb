@@ -1,4 +1,3 @@
-# app/models/cart_item.rb
 class CartItem < ApplicationRecord
   belongs_to :user
   belongs_to :product, optional: true  # Allow the product association to be optional

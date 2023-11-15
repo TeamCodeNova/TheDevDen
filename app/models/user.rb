@@ -1,4 +1,3 @@
-# app/models/user.rb
 class User < ApplicationRecord
   # Virtual attribute for authenticating by remember token
   attr_accessor :remember_token
