@@ -1,6 +1,7 @@
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
+  helper_method :current_admin
 
   private
 
@@ -12,6 +13,10 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !!current_user
+  end
+
+  def current_admin
+    @current_admin ||= User.find_by(id: session[:admin_id])
   end
 
   def require_user

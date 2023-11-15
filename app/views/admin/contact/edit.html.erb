@@ -1,0 +1,8 @@
+<!-- app/views/admin/about/edit.html.erb -->
+
+<h1>Edit Contact Page</h1>
+
+<%= form_for @contact_content, url: admin_contact_path, method: :put do |f| %>
+  <%= f.text_area :content %>
+  <%= f.submit "Update" %>
+<% end %>

@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       reset_session # Protects from session fixation attacks
       session[:user_id] = user.id
+      session[:admin_id] = user.admin? ? user.id : nil # Set admin session variable
       remember(user) # This method will be implemented to remember the user
       redirect_to root_path, notice: 'Logged in successfully.'
     else
