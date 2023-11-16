@@ -18,9 +18,6 @@ Rails.application.routes.draw do
   # Product routes
   resources :products, only: [:index, :show]
 
-  # Cart routes
-  resources :cart, only: [:index]
-
   # Account routes
   resource :account, only: [:show]
 
@@ -29,6 +26,13 @@ Rails.application.routes.draw do
 
   # Contact page routes
   resource :contact, only: [:show, :edit, :update], controller: 'contact'
+
+  # Cart_items page routes
+  get '/cart', to: 'cart_items#index'
+
+# config/routes.rb
+  resources :cart_items, only: [:create, :index, :destroy]  # Add :destroy here
+
 
   # Admin namespace routes
   namespace :admin do

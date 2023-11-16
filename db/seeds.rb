@@ -1,5 +1,6 @@
 require 'faker'
 
+# Clear existing data
 User.delete_all
 
 # Create an admin user

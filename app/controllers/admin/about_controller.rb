@@ -1,5 +1,3 @@
-# app/controllers/admin/about_controller.rb
-
 module Admin
   class AboutController < ApplicationController
     before_action :authenticate_admin!

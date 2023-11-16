@@ -1,4 +1,3 @@
-# app/models/admin_session_form.rb
 class AdminSessionForm
   include ActiveModel::Model
 

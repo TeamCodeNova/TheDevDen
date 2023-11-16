@@ -1,4 +1,3 @@
-# app/models/user.rb
 class User < ApplicationRecord
   # Virtual attribute for authenticating by remember token
   attr_accessor :remember_token
@@ -11,6 +10,8 @@ class User < ApplicationRecord
   # Add other validations for :name and :address if needed
   validates :name, presence: true
   validates :address, presence: true
+
+  has_many :cart_items
 
   # Generates a new remember token and saves its digest to the database
   def remember
