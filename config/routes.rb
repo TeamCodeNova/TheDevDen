@@ -56,5 +56,5 @@ Rails.application.routes.draw do
     put 'contact', to: 'contact#update'
   end
 
-  # Add any additional routes here
+  # Add any additional routes
 end

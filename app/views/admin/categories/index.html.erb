@@ -1,0 +1,27 @@
+<!-- app/views/admin/categories/index.html.erb -->
+
+<h1>Admin Panel - Categories</h1>
+
+<p><%= link_to 'New Category', new_admin_category_path, class: 'btn btn-primary' %></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.category_name %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_category_path(category), class: 'btn btn-primary' %>
+          <%= form_with url: admin_category_path(category), method: :delete do %>
+            <%= submit_tag 'Delete', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

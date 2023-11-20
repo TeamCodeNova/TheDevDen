@@ -1,15 +1,43 @@
+# app/controllers/accounts_controller.rb
 class AccountsController < ApplicationController
   before_action :require_user
-  helper_method :current_user, :logged_in?
-
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  rescue ActiveRecord::RecordNotFound
-    session[:user_id] = nil
-  end
+  helper_method :current_user
 
   def show
     @user = current_user
-    # Assuming @user is the current user's data
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+  
+    if user_params[:password].present? || user_params[:password_confirmation].present?
+      # If password fields are present, update password
+      if @user.update(user_params)
+        flash[:success] = 'Password updated successfully.'
+      else
+        render :edit
+        return
+      end
+    else
+      # If no password fields, update other attributes
+      if @user.update(user_params.except(:password, :password_confirmation))
+        flash[:success] = 'Profile updated successfully.'
+      else
+        render :edit
+        return
+      end
+    end
+  
+    redirect_to account_path
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :address, :password, :password_confirmation)
   end
 end

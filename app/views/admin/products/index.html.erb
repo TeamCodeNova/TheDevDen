@@ -22,11 +22,10 @@
         <td><%= product.product_description %></td>
         <td><%= number_to_currency(product.product_price) %></td>
         <td><%= product.category.category_name %></td>
-        <td>
+        <td class="product-image-cell">
           <% product_image = ProductImage.find_by(product_id: product.id) %>
           <% if product_image.present? %>
-            <%= image_tag url_for(product_image.image) %>
-            <%= product_image.image.filename %>
+            <%= image_tag url_for(product_image.image), class: 'product-image' %>
           <% else %>
             No Image
           <% end %>

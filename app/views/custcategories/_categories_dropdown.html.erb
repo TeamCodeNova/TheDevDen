@@ -1,0 +1,10 @@
+<%= form_tag(custcategories_path, method: :get) do %>
+  <label for="category_id">Select a category:</label>
+  <select name="category_id" id="category_id">
+    <option value="">All Categories</option>
+    <% @categories.each do |category| %>
+      <option value="<%= category.id %>"><%= category.category_name %></option>
+    <% end %>
+  </select>
+  <input type="submit" value="Search">
+<% end %>
