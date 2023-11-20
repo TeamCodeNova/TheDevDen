@@ -12,8 +12,13 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new', as: 'signup'
   post 'users', to: 'users#create'
 
+  get '/edit_account', to: 'accounts#edit', as: :edit_account
+  patch '/update_account', to: 'accounts#update', as: :update_account
+
   # Home page route
   root 'home#index'
+
+  resources :custcategories, only: [:index, :show] 
 
   # Product routes
   resources :products, only: [:index, :show]
@@ -40,6 +45,11 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboard#index'
     get 'about/edit', to: 'about#edit', as: 'edit_about'
     put 'about', to: 'about#update'
+    resources :categories do
+      collection do
+        get 'new_from_product_form'
+      end
+    end
 
     # Contact page routes within admin namespace
     get 'contact/edit', to: 'contact#edit', as: 'edit_contact'
