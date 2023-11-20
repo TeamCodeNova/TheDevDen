@@ -1,2 +1,9 @@
-<h1>Home</h1>
+<!-- home/index.html.erb -->
+<h1>Welcome to the Home Page</h1>
 
+
+<%= form_tag(products_path, method: :get) do %>
+  <%= text_field_tag :keyword, params[:keyword], placeholder: 'Search by keyword...' %>
+  <%= submit_tag 'Search' %>
+  
+<% end %>

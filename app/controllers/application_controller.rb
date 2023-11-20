@@ -1,8 +1,14 @@
+# app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
   helper_method :current_admin
 
   private
+
+  def redirect_back_or_default(default, options = {})
+  redirect_to(request.referer.present? ? :back : default, options)
+end
+
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]

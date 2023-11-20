@@ -25,6 +25,7 @@ module Admin
     # Create a new product form
     def new
       @product = Product.new
+      @category = Category.new
     end
 
     # Save a new product

@@ -1,0 +1,43 @@
+<%= render partial: 'categories_dropdown' %>
+
+<% if @category.present? %>
+  <h1>Products</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Image</th>
+        <th>Add to Cart</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.product_name %></td>
+          <td><%= product.product_description %></td>
+          <td><%= number_to_currency(product.product_price) %></td>
+          <td><%= product.category.category_name %></td>
+          <td>
+            <% product_image = ProductImage.find_by(product_id: product.id) %>
+            <% if product_image.present? %>
+              <%= image_tag url_for(product_image.image), class: 'product-image' %>
+            <% else %>
+              No Image
+            <% end %>
+          </td>
+          <td>
+            <%= form_with(model: CartItem.new, url: cart_items_path, method: :post) do |form| %>
+              <%= form.hidden_field :product_id, value: product.id %>
+              <%= form.number_field :quantity, in: 1..10, step: 1, class: 'form-control' %>
+              <%= form.submit "Add to Cart", class: 'btn btn-primary' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

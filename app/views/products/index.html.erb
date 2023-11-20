@@ -1,5 +1,17 @@
 <h1>Products</h1>
+<div class="filter-bar" style="display: flex; align-items: center;">
+  <div class="filter-label">
+    <p style="margin-right: 10px;">Filter:</p>
+  </div>
 
+  <div class="filter-dropdown">
+    <%= form_tag(products_path, method: :get) do %>
+      <%= select_tag(:filter, options_for_select([['All Products', nil], ['On Sale', 'on_sale'], ['New Products', 'new'], ['Recently Updated', 'recently_updated']], params[:filter]), include_blank: false, class: 'form-control') %>
+      <%= button_tag('Apply Filter', type: 'submit', class: 'btn btn-primary') %>
+    <% end %>
+  </div>
+  </div>
+</div>
 <table class="table">
   <thead>
     <tr>
