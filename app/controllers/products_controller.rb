@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
     @products = @products.where(category_id: params[:category]) if params[:category].present?
     @products = @products.where('product_name LIKE ? OR product_description LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%") if params[:keyword].present?
     apply_filters if params[:filter].present?
+    @products = @products.page(params[:page]).per(10)
   end
 
   def show
