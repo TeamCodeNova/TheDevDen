@@ -1,7 +1,8 @@
 class CustcategoriesController < ApplicationController
+  before_action :require_user
     def index
         @categories = Category.all
-    
+
         # Check if a category is selected for filtering
         if params[:category_id].present?
           @category = Category.find(params[:category_id])
@@ -15,4 +16,3 @@ class CustcategoriesController < ApplicationController
     end
   end
 end
-  

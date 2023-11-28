@@ -9,7 +9,6 @@ User.create!(
   email: 'admin@example.com',
   password: 'admin123',
   address: '123 Fake St',
-  # Set the admin flag to true if you have this attribute; remove if you don't
   admin: true
 )
 
