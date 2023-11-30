@@ -1,3 +1,6 @@
 <h1>Contact Us</h1>
-<%= @contact_content.content.html_safe %>
-
+<% if @contact_content&.content %>
+  <%= @contact_content.content.html_safe %>
+<% else %>
+  <p>Content not available.</p>
+<% end %>

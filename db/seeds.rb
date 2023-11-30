@@ -23,8 +23,9 @@ User.create!(
   email: 'admin@example.com',
   password: 'admin123',
   address: '123 Fake St',
+  province: Province.second,
   admin: true,
-  
+
 )
 
 # Create two other fake users with provinces
