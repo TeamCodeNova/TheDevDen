@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Virtual attribute for authenticating by remember token
   attr_accessor :remember_token
+  belongs_to :province, optional: true
 
   # Password validation and encryption
   has_secure_password
@@ -10,6 +11,7 @@ class User < ApplicationRecord
   # Add other validations for :name and :address if needed
   validates :name, presence: true
   validates :address, presence: true
+  validates :province, presence: true
 
   has_many :cart_items
 

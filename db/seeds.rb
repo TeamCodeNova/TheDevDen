@@ -2,30 +2,46 @@ require 'faker'
 
 # Clear existing data
 User.delete_all
+Province.delete_all
 
-# Create an admin user
+# Create provinces in Canada
+canadian_provinces = [
+  'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador',
+  'Nova Scotia', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Northwest Territories',
+  'Nunavut', 'Yukon'
+]
+
+canadian_provinces.each do |province_name|
+  Province.create(province_name: province_name)
+end
+
+# Create an admin user with a province
+admin_province = Province.first
+
 User.create!(
   name: 'admin',
   email: 'admin@example.com',
   password: 'admin123',
   address: '123 Fake St',
-  # Set the admin flag to true if you have this attribute; remove if you don't
-  admin: true
+  admin: true,
+  
 )
 
-# Create two other fake users
+# Create two other fake users with provinces
 User.create!(
   name: 'test1',
   email: 'test1@example.com',
   password: 'password1',
-  address: '456 Fake Ave'
+  address: '456 Fake Ave',
+  province: Province.second
 )
 
 User.create!(
   name: 'test2',
   email: 'test2@example.com',
   password: 'password2',
-  address: '789 Fake Blvd'
+  address: '789 Fake Blvd',
+  province: Province.third
 )
 
 # Clear existing data
@@ -49,3 +65,4 @@ end
 
 puts "Seeded #{Category.count} categories."
 puts "Seeded #{Product.count} products."
+puts "Seeded #{Province.count} provinces."
