@@ -108,6 +108,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_26_184200) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string "province_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -117,9 +123,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_26_184200) do
     t.string "address"
     t.string "remember_digest"
     t.boolean "admin"
+    t.integer "province_id"
     t.string "country"
     t.string "province"
     t.string "postal_code"
+    t.index ["province_id"], name: "index_users_on_province_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -131,4 +139,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_26_184200) do
   add_foreign_key "orders", "users"
   add_foreign_key "product_images", "products"
   add_foreign_key "products", "categories"
+  add_foreign_key "users", "provinces"
 end

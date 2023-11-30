@@ -32,6 +32,11 @@
   </div>
 
   <div>
+    <%= form.label :province_id %>
+    <%= form.collection_select :province_id, Province.all, :id, :province_name, prompt: 'Select province' %>
+  </div>
+
+  <div>
     <%= form.label :password %>
     <%= form.password_field :password %>
   </div>

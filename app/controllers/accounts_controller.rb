@@ -14,6 +14,7 @@ class AccountsController < ApplicationController
   def update
     @user = current_user
 
+
     if user_params[:password].present? || user_params[:password_confirmation].present?
       # If password fields are present, update password
       if @user.update(user_params)
@@ -32,13 +33,16 @@ class AccountsController < ApplicationController
       end
     end
 
+
     redirect_to account_path
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :address, :country, :province, :postal_code ,:password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :address, :province_id, :password, :password_confirmation)
+          .reject { |_, v| v.blank? }
   end
+
 end
 
