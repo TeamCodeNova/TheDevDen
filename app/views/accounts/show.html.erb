@@ -5,6 +5,7 @@
 <p>Email: <%= @user.email %></p>
 <p>Address: <%= @user.address %></p>
 <p>Province: <%= @user.province.province_name %></p>
+<p>postal_code: <%= @user.postal_code %></p>
 <%= link_to 'Edit Profile', edit_account_path %>
 
 <%= form_tag logout_path, method: :delete do %>

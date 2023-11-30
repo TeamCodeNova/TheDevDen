@@ -1,6 +1,6 @@
 <h1>About Us</h1>
 <% if @about_content&.content %>
-  <%= @about_content.content.html_safe %>
+  <%= @about_content.content %>
 <% else %>
   <p>Content not available.</p>
 <% end %>
