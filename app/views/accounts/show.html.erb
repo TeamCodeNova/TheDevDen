@@ -24,6 +24,7 @@
   }
 
   .button-bar button,
+  .button-bar a.button-link, /* Styling for the edit link */
   .button-bar input[type="submit"] {
     padding: 10px 20px;
     border: none;
@@ -36,6 +37,7 @@
   }
 
   .button-bar button:hover,
+  .button-bar a.button-link:hover, /* Hover effect for the edit link */
   .button-bar input[type="submit"]:hover {
     background-color: #0056b3;
   }
@@ -50,18 +52,10 @@
   <p>Postal Code: <%= @user.postal_code %></p>
 
   <div class="button-bar">
-    <button id="edit-profile-btn">Edit Profile</button>
+    <%= link_to 'Edit', edit_account_path, class: 'button-link' %>
 
     <%= form_tag logout_path, method: :delete do %>
       <%= submit_tag 'Logout' %>
     <% end %>
   </div>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('edit-profile-btn').addEventListener('click', () => {
-      window.location.href = '<%= edit_account_path %>';
-    });
-  });
-</script>
