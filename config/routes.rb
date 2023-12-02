@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # Home page route
   root 'home#index'
 
-  resources :custcategories, only: [:index, :show] 
+  resources :custcategories, only: [:index, :show]
 
   # Product routes
   resources :products, only: [:index, :show]
@@ -37,6 +37,9 @@ Rails.application.routes.draw do
 
 # config/routes.rb
   resources :cart_items, only: [:create, :index, :destroy]  # Add :destroy here
+
+  # orders
+  resources :orders, only: [:new, :create]
 
 
   # Admin namespace routes
