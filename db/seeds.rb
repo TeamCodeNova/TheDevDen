@@ -23,7 +23,7 @@ User.create!(
   email: 'admin@example.com',
   password: 'admin123',
   address: '123 Fake St',
-  province: Province.second,
+  province: admin_province,
   admin: true,
 
 )

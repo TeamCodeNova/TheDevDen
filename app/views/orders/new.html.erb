@@ -9,6 +9,9 @@
   </div>
 <% end %>
 
-<%= form_for @order, url: orders_path, method: :put do |f| %>
+<%= form_for @order, url: orders_path, data: { turbo: false } do |f| %>
+  <%= f.hidden_field :total, value: @order.total %>
+  <%= f.hidden_field :tax, value: @order.tax %>
   <%= f.submit 'Place Order', class: 'btn btn-primary' %>
 <% end %>
+
