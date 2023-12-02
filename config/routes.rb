@@ -35,12 +35,16 @@ Rails.application.routes.draw do
   # Cart_items page routes
   get '/cart', to: 'cart_items#index'
 
-# config/routes.rb
+  # config/routes.rb
   resources :cart_items, only: [:create, :index, :destroy]  # Add :destroy here
 
   # orders
   resources :orders, only: [:new, :create]
 
+  # config/routes.rb
+  resources :orders, only: [:new, :create]
+  get '/paypal_payment/:order_id', to: 'paypal_payments#initiate', as: 'initiate_paypal_payment'
+  get '/paypal_payment/execute', to: 'paypal_payments#execute', as: 'execute_paypal_payment'
 
   # Admin namespace routes
   namespace :admin do

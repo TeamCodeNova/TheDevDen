@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :province, presence: true
 
   has_many :cart_items
-
+  has_many :orders
   # Generates a new remember token and saves its digest to the database
   def remember
     self.remember_token = User.new_token

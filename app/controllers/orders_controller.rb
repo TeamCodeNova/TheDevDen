@@ -1,19 +1,24 @@
+# app/controllers/orders_controller.rb
 class OrdersController < ApplicationController
   before_action :require_user
 
   def new
-    @order = Order.new
     @cart_items = current_user.cart_items.includes(:product)
+    @order = current_user.orders.build
     @order.calculate_total(@cart_items)
   end
 
   def create
     @order = current_user.orders.build(order_params)
+    @order.calculate_total(current_user.cart_items)
+
     if @order.save
-      # Placeholder for PayPal integration
-      # Redirect to PayPal payment page
-      flash[:notice] = "Order placed successfully. Redirecting to PayPal..."
-      redirect_to root_path # Change this to PayPal's URL
+      current_user.cart_items.each do |cart_item|
+        @order.order_items.create(product_id: cart_item.product_id, quantity: cart_item.quantity)
+        cart_item.destroy
+      end
+
+      redirect_to initiate_paypal_payment_path(order_id: @order.id)
     else
       render :new
     end
@@ -22,6 +27,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    # Add required params here
+    params.require(:order).permit()
   end
 end

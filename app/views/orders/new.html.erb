@@ -1,12 +1,14 @@
+<!-- app/views/orders/new.html.erb -->
 <h1>Confirm Your Order</h1>
 <p>Total: <%= number_to_currency(@order.total) %></p>
 <p>Tax: <%= number_to_currency(@order.tax) %></p>
 
-<% # Display cart items here %>
 <% @cart_items.each do |cart_item| %>
   <div class="cart-item">
     <p><%= cart_item.product.product_name %> - <%= cart_item.quantity %> x <%= number_to_currency(cart_item.product.product_price) %></p>
   </div>
 <% end %>
 
-<%= button_to 'Place Order', orders_path, method: :post %>
+<%= form_for @order, url: orders_path, method: :put do |f| %>
+  <%= f.submit 'Place Order', class: 'btn btn-primary' %>
+<% end %>
