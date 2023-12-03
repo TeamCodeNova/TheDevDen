@@ -36,8 +36,7 @@ Rails.application.routes.draw do
   get '/cart', to: 'cart_items#index'
 
   # config/routes.rb
-  resources :cart_items, only: [:create, :index, :destroy]  # Add :destroy here
-
+  resources :cart_items, only: [:create, :index, :destroy, :update]
 
   # config/routes.rb
   resources :orders, only: [:new, :create]

@@ -31,6 +31,17 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def update
+    @cart_item = current_user.cart_items.find(params[:id])
+
+    if @cart_item.update(cart_item_params)
+      redirect_to cart_items_path, notice: 'Cart item updated.'
+    else
+      flash.now[:alert] = @cart_item.errors.full_messages.to_sentence
+      redirect_to cart_items_path
+    end
+  end
+
   private
 
   def cart_item_params
