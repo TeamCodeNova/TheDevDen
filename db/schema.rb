@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_03_032554) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_03_034009) do
   create_table "abouts", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -100,6 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_03_032554) do
     t.decimal "total"
     t.decimal "tax"
     t.string "status"
+    t.string "paypal_payment_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

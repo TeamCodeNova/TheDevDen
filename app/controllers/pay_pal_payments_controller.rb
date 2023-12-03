@@ -55,13 +55,13 @@ class PayPalPaymentsController < ApplicationController
     payment = PayPal::SDK::REST::Payment.find(payment_id)
 
     if payment.execute(payer_id: payer_id)
-      # Retrieve the order using the order ID passed in the URL
       @order = Order.find_by(id: params[:order_id])
 
       if @order
-        @order.update(status: 'paid')
+        # Update the order with the PayPal payment ID
+        @order.update(status: 'paid', paypal_payment_id: payment_id)
+
         flash[:notice] = "Payment completed successfully."
-        # Redirect to the success page with the order ID
         redirect_to order_success_path(@order)
       else
         flash[:alert] = "Order not found."
