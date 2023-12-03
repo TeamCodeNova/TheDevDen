@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:new, :create]
 
   # config/routes.rb
-  get '/pay_pal_payment/:order_id', to: 'pay_pal_payments#initiate', as: 'initiate_pay_pal_payment'
+  get '/pay_pal_payment/initiate/:order_id', to: 'pay_pal_payments#initiate', as: 'initiate_pay_pal_payment'
   get '/pay_pal_payment/execute', to: 'pay_pal_payments#execute', as: 'execute_pay_pal_payment'
 
   # config/routes.rb

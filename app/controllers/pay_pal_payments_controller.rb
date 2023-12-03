@@ -7,7 +7,6 @@ class PayPalPaymentsController < ApplicationController
 
     # Calculate the total item amount
     item_total = @order.order_items.sum { |item| item.product.product_price.to_f * item.quantity }
-
     # Calculate the total amount for the order
     total_amount = item_total.to_f.round(2) # Ensure two decimal places
 
@@ -26,14 +25,14 @@ class PayPalPaymentsController < ApplicationController
             {
               name: item.product.product_name,
               sku: item.product.id.to_s,
-              price: item.product.product_price.to_f.round(2).to_s, # Ensure two decimal places
+              price: item.product.product_price.to_f.round(2).to_s,
               currency: "CAD",
               quantity: item.quantity
             }
           end
         },
         amount: {
-          total: total_amount.to_s, # Use the calculated total amount
+          total: total_amount.to_s,
           currency: "CAD"
         },
         description: "Order from Your Store"
@@ -42,27 +41,35 @@ class PayPalPaymentsController < ApplicationController
 
     if payment.create
       redirect_url = payment.links.find { |v| v.rel == "approval_url" }.href
-      Rails.logger.info "Redirecting to PayPal: #{redirect_url}" # Debugging line
-      redirect_to redirect_url, allow_other_host: true # Allow redirect to external URL
+      redirect_to redirect_url, allow_other_host: true
     else
-      Rails.logger.error "PayPal payment creation failed: #{payment.error}" # Debugging line
       flash[:error] = "Error: #{payment.error}"
       redirect_to new_order_path
     end
   end
 
   def execute
-    payment = PayPal::SDK::REST::Payment.find(params[:paymentId])
+    payment_id = params[:paymentId]
+    payer_id = params[:PayerID]
 
-    if payment.execute(payer_id: params[:PayerID])
-      @order = Order.find(params[:order_id])
-      @order.update(status: 'paid')
-      flash[:notice] = "Payment completed successfully."
-      redirect_to order_success_path(@order)
+    payment = PayPal::SDK::REST::Payment.find(payment_id)
+
+    if payment.execute(payer_id: payer_id)
+      # Retrieve the order using the order ID passed in the URL
+      @order = Order.find_by(id: params[:order_id])
+
+      if @order
+        @order.update(status: 'paid')
+        flash[:notice] = "Payment completed successfully."
+        # Redirect to the success page with the order ID
+        redirect_to order_success_path(@order)
+      else
+        flash[:alert] = "Order not found."
+        redirect_to root_path
+      end
     else
-      # Handle unsuccessful payment
-      flash[:alert] = "There was an issue with the PayPal payment."
-      redirect_to root_path # Or another appropriate path
+      flash[:alert] = "Payment could not be completed."
+      redirect_to new_order_path
     end
   end
 end
