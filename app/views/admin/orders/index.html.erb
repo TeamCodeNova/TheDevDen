@@ -1,0 +1,40 @@
+<h1>All Orders</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>User</th>
+      <th>Order Items</th>
+      <th>Total</th>
+      <th>Tax</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.user.name %></td>
+        <td>
+          <ul>
+            <% order.order_items.each do |item| %>
+              <li>
+                <%= item.product.product_name %> - Quantity: <%= item.quantity %>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+        <td><%= order.total %></td>
+        <td><%= order.tax %></td>
+        <td><%= order.status %></td>
+        <td>
+          <%= form_with(model: [:admin, order], method: :patch) do |form| %>
+            <%= form.select :status, ['paid', 'shipped', 'cancelled'] %>
+            <%= form.submit 'Update' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

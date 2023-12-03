@@ -1,11 +1,21 @@
 # app/controllers/orders_controller.rb
-class OrdersController < ApplicationController
+module Admin
+  class OrdersController < ApplicationController
   before_action :require_user
+  before_action :authenticate_admin!
 
   def index
     @orders = Order.all.includes(:user, :order_items)
   end
 
+  def update
+    @order = Order.find(params[:id])
+    if @order.update(order_params)
+      redirect_to admin_orders_path, notice: 'Order status updated.'
+    else
+      redirect_to admin_orders_path, alert: 'Unable to update order.'
+    end
+  end
 
   def new
     @cart_items = current_user.cart_items.includes(:product)
@@ -52,4 +62,13 @@ class OrdersController < ApplicationController
       cart_item.destroy
     end
   end
+
+  def authenticate_admin!
+    redirect_to admin_login_path unless current_admin
+  end
+
+  def current_admin
+    @current_admin ||= User.find_by(id: session[:admin_id])
+  end
+end
 end

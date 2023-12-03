@@ -32,24 +32,20 @@ Rails.application.routes.draw do
   # Contact page routes
   resource :contact, only: [:show, :edit, :update], controller: 'contact'
 
-  # Cart_items page routes
-  get '/cart', to: 'cart_items#index'
-
-  # config/routes.rb
+  # Cart items page routes
   resources :cart_items, only: [:create, :index, :destroy, :update]
 
-  # config/routes.rb
-  resources :orders, only: [:new, :create]
+  # Order routes for users
+  resources :orders, only: [:new, :create, :index]
 
-  # config/routes.rb
+  # PayPal payment routes
   get '/pay_pal_payment/initiate/:order_id', to: 'pay_pal_payments#initiate', as: 'initiate_pay_pal_payment'
   get '/pay_pal_payment/execute', to: 'pay_pal_payments#execute', as: 'execute_pay_pal_payment'
 
-  # config/routes.rb
+  # Order success route
   get '/order_success/:id', to: 'orders#success', as: 'order_success'
 
-
-  # Admin namespace routes
+  # Admin namespace routes with authentication
   namespace :admin do
     resources :products
     get 'dashboard', to: 'dashboard#index'
@@ -60,6 +56,9 @@ Rails.application.routes.draw do
         get 'new_from_product_form'
       end
     end
+
+    # Admin routes for managing orders
+    resources :orders, only: [:index, :update, :show]
 
     # Contact page routes within admin namespace
     get 'contact/edit', to: 'contact#edit', as: 'edit_contact'

@@ -1,0 +1,27 @@
+<h1>Your Orders</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Total</th>
+      <th>Tax</th>
+      <th>Status</th>
+      <th>Order Items</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% current_user.orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= number_to_currency(order.total) %></td>
+        <td><%= number_to_currency(order.tax) %></td>
+        <td><%= order.status %></td>
+        <td>
+          <% order.order_items.each do |item| %>
+            <%= item.product.product_name %>: Quantity: <%= item.quantity %>, Price: <%= number_to_currency(item.product.product_price) %><br>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
