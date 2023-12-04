@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :require_user
 
   def index
+    @categories = Category.all
     @products = Product.all
     @products = @products.where(category_id: params[:category]) if params[:category].present?
     @products = @products.where('product_name LIKE ? OR product_description LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%") if params[:keyword].present?

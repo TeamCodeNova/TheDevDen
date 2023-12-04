@@ -1,0 +1,21 @@
+<%= render partial: 'category_link' %>
+
+<% if @category.present? %>
+  <h1>Products</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Image</th>
+        <th>Add to Cart</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'products_table', locals: { products: @products } %>
+    </tbody>
+  </table>
+<% end %>

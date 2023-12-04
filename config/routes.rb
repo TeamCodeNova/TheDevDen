@@ -18,7 +18,12 @@ Rails.application.routes.draw do
   # Home page route
   root 'home#index'
 
-  resources :custcategories, only: [:index, :show]
+  resources :custcategories, only: [:index, :show] do
+    member do
+      get 'products'
+    end
+  end
+  
 
   # Product routes
   resources :products, only: [:index, :show]

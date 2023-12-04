@@ -1,4 +1,7 @@
 <h1>Products</h1>
+
+<%= render partial: 'category_link', locals: { categories: @categories } %>
+
 <div class="filter-bar" style="display: flex; align-items: center;">
   <div class="filter-label">
     <p style="margin-right: 10px;">Filter:</p>
@@ -10,8 +13,8 @@
       <%= button_tag('Apply Filter', type: 'submit', class: 'btn btn-primary') %>
     <% end %>
   </div>
-  </div>
 </div>
+
 <table class="table">
   <thead>
     <tr>
@@ -49,4 +52,5 @@
     <% end %>
   </tbody>
 </table>
+
 <%= paginate @products %>
