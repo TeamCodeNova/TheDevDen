@@ -7,7 +7,7 @@ class CustcategoriesController < ApplicationController
     if params[:category_id].present?
       @category = Category.find(params[:category_id])
       @products = @category.products
-      
+
     else
       @products = []
     end
