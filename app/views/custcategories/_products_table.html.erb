@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TheDevDen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+<style>
+  /* Updated navigation styles */
+  ul.inline-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    background-color: #DAA06D;
+    border: 2px solid #964B00;
+    border-radius: 5px;
+  }
+
+  ul.inline-list li {
+    padding: 5px 15px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+  }
+
+  ul.inline-list li:hover {
+    background-color: #F1C2A5;
+  }
+
+  ul.inline-list li a {
+    text-decoration: none;
+    color: #964B00;
+    font-weight: bold;
+  }
+
+  ul.inline-list li a:hover {
+    color: #702E00;
+  }
+</style>
+<body>
+  <header style="background: #964B00; padding: 5px; text-align: center;">
+    <h1>The Dev Den</h1>
+  </header>
+  <nav>
+    <ul class="inline-list">
+      <li><%= link_to 'Home', root_path %></li>
+      <li><%= link_to 'Products', products_path %></li>
+      <li><%= link_to 'Cart', cart_items_path %></li>
+      <li><%= link_to 'Orders', orders_path %></li>
+      <li><%= link_to 'Categories', custcategories_path %></li>
+      <li><%= link_to 'About', about_path %></li>
+      <li><%= link_to 'Account', account_path %></li>
+      <% if current_admin %>
+        <li><%= link_to 'Admin Panel', admin_dashboard_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+  <%= yield %>
+  <% flash.each do |key, value| %>
+  <div class="<%= key %>"><%= value %></div>
+<% end %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Image</th>
+      <th>Add to Cart</th>
+
+     
+    </tr>
+  </thead>
+  <tbody>
+    <% products.each do |product| %>
+      <tr>
+        <td><%= product.product_name %></td>
+        <td><%= product.product_description %></td>
+        <td><%= product.product_price %></td>
+        <td><%= product.category.category_name %></td>
+        <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.product_name %></td>
+        <td><%= product.product_description %></td>
+        <td><%= number_to_currency(product.product_price) %></td>
+        <td><%= product.category.category_name %></td>
+        <td>
+          <% product_image = ProductImage.find_by(product_id: product.id) %>
+          <% if product_image.present? %>
+            <%= image_tag url_for(product_image.image), class: 'product-image' %>
+          <% else %>
+            No Image
+          <% end %>
+        </td>
+        <td>
+          <%= form_with(model: CartItem.new, url: cart_items_path, method: :post) do |form| %>
+            <%= form.hidden_field :product_id, value: product.id %>
+            <%= form.number_field :quantity, in: 1..10, step: 1, class: 'form-control' %>
+            <%= form.submit "Add to Cart", class: 'btn btn-primary' %>
+          <% end %>
+        </td>
+          </tr>
+    <% end %>
+  </tbody>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</body>
+<footer style="background: #964B00; padding: 5px; text-align: center; margin-top: 10px;">
+  <p>&copy; 2023 GemCraft</p>
+  <p><%= link_to 'Contact Us!', contact_path %></p>
+</footer>
+</html>
+
