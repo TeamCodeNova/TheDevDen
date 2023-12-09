@@ -3,18 +3,17 @@ class User < ApplicationRecord
   attr_accessor :remember_token
   belongs_to :province, optional: true
 
-  # Password validation and encryption
   has_secure_password
 
-  # Validates presence and uniqueness of email
   validates :email, presence: true, uniqueness: { case_sensitive: false }
-  # Add other validations for :name and :address if needed
+
   validates :name, presence: true
   validates :address, presence: true
   validates :province, presence: true
 
   has_many :cart_items
   has_many :orders
+
   # Generates a new remember token and saves its digest to the database
   def remember
     self.remember_token = User.new_token

@@ -1,6 +1,6 @@
 class CartItem < ApplicationRecord
   belongs_to :user
-  belongs_to :product, optional: true  # Allow the product association to be optional
+  belongs_to :product, optional: true
 
-  validates :quantity, numericality: { greater_than: 0 }
+  validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
 end
