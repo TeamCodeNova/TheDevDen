@@ -1,38 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Category Links</title>
-  <style>
-    /* CSS styles for the category links */
-    ul.category-list {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      display: flex; /* Display horizontally */
-    }
+<ul class="category-list">
+  <% @categories.each do |category| %>
+    <li>
+      <%= link_to category.category_name, products_custcategory_path(category) %>
+    </li>
+  <% end %>
+</ul>
 
-    ul.category-list li {
-      margin-right: 10px; /* Adjust spacing between links */
-    }
-
-    ul.category-list li a {
-      text-decoration: none;
-      color: blue; /* Blue color */
-      font-weight: bold;
-    }
-
-    ul.category-list li a:hover {
-      text-decoration: underline; /* Underline on hover */
-    }
-  </style>
-</head>
-<body>
-  <ul class="category-list">
-    <% @categories.each do |category| %>
-      <li>
-        <%= link_to category.category_name, products_custcategory_path(category) %>
-      </li>
-    <% end %>
-  </ul>
-</body>
-</html>
