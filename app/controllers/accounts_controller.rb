@@ -1,4 +1,3 @@
-# app/controllers/accounts_controller.rb
 class AccountsController < ApplicationController
   before_action :require_user
   helper_method :current_user

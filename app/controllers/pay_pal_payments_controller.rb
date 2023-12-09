@@ -1,4 +1,3 @@
-# app/controllers/paypal_payments_controller.rb
 class PayPalPaymentsController < ApplicationController
   before_action :require_user
 

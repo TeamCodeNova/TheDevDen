@@ -1,4 +1,3 @@
-# app/controllers/orders_controller.rb
 module Admin
   class OrdersController < ApplicationController
   before_action :require_user
