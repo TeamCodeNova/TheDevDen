@@ -67,19 +67,7 @@
   <header style="background: #964B00; padding: 5px; text-align: center;">
     <h1>The Dev Den</h1>
   </header>
-  <nav>
-    <ul class="inline-list">
-      <li><%= link_to 'Home', root_path %></li>
-      <li><%= link_to 'Products', products_path %></li>
-      <li><%= link_to 'Cart', cart_items_path %></li>
-      <li><%= link_to 'Orders', orders_path %></li>
-      <li><%= link_to 'About', about_path %></li>
-      <li><%= link_to 'Account', account_path %></li>
-      <% if current_admin %>
-        <li><%= link_to 'Admin Panel', admin_dashboard_path %></li>
-      <% end %>
-    </ul>
-  </nav>
+  <%= render 'partials/navbar' %>
   <%= yield %>
   <% flash.each do |key, value| %>
     <div class="<%= key %>"><%= value %></div>

@@ -1,15 +1,59 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+ul.inline-list {
+   list-style-type: none;
+   padding: 0;
+   margin: 0;
+   display: flex;
+   justify-content: center;
+   gap: 10px;
+   background-color: #DAA06D;
+   border: 2px solid #964B00;
+   border-radius: 5px;
+ }
+
+ ul.inline-list li {
+   padding: 5px 15px;
+   border-radius: 3px;
+   transition: background-color 0.3s ease;
+ }
+
+ ul.inline-list li:hover {
+   background-color: #F1C2A5;
+ }
+
+ ul.inline-list li a {
+   text-decoration: none;
+   color: #964B00;
+   font-weight: bold;
+ }
+
+ ul.inline-list li a:hover {
+   color: #702E00;
+ }
+
+     /* CSS styles for the category links */
+ul.category-list {
+ list-style-type: none;
+ padding: 0;
+ margin: 0;
+ display: flex; /* Display horizontally */
+}
+
+ul.category-list li {
+ margin-right: 10px; /* Adjust spacing between links */
+}
+
+ul.category-list li a {
+ text-decoration: none;
+ color: blue; /* Blue color */
+ font-weight: bold;
+}
+
+ul.category-list li a:hover {
+ text-decoration: underline; /* Underline on hover */
+}
+
+.main-header {
+  background: #964B00;
+  padding: 5px;
+  text-align: center;
+}
