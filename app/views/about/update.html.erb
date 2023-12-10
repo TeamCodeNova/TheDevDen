@@ -1,6 +1,6 @@
 <h1>Edit About Page</h1>
 
 <%= form_for @about_content, url: about_path, method: :put do |f| %>
-  <%= f.rich_text_area :content %>
+  <%= f.rich_text_area :content, class: 'custom-rich-text'%>
   <%= f.submit "Update" %>
 <% end %>
